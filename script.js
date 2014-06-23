@@ -93,43 +93,50 @@ window.onload=function(){
             if(axis<=50) return axis;
             axis = axis-bugSpeed;
             return axis;
-        }
-        else if(i==2) {
+        } else if(i==2) {
             return false;
         }
     }
 
+    var stop = false;
+    var randBugX = [];
+    var randBugY = [];
     function createBadBugs(count){
-        var randBugX = CreatorElements.rand(150,height-250);
-        var randBugY = CreatorElements.rand(150,height-250);
-        (function(){
-            for(var i=0; i<count; i++){
-                CreatorElements.circle(ctx, randBugX+count, randBugY+count, 4, 220, 0,0, 9);
-                randBugX = randMove(randBugX, CreatorElements.rand(1,6));
-                randBugY = randMove(randBugY, CreatorElements.rand(1,6));
+        for(var i=1; i<=count; i++){
+            if(!stop){
+                randBugX[i] = CreatorElements.rand(50,width-50);
+                randBugY[i] = CreatorElements.rand(50,height-50);
+                CreatorElements.circle(ctx, randBugX[i], randBugY[i], 4, 220, 0,0, 9);
+            } else {
+                CreatorElements.circle(ctx, randBugX[i], randBugY[i], 4, 220, 0,0, 9);
             }
-        })();
+            randBugX[i] = randMove(randBugX[i]);
+            randBugY[i] = randMove(randBugY[i]);
+
+        }
+        stop = true;
     }
 
     // Стартовые координаты жука
     var randX = CreatorElements.rand(50,width-50);
     var randY = CreatorElements.rand(50,height-50);
-    var randBugX = CreatorElements.rand(150,height-250);
-    var randBugY = CreatorElements.rand(150,height-250);
+
+
     function start(){
         clear(ctx);
 
-        // Рисуем нашего жука
-        CreatorElements.circle(ctx, randX, randY, 6, 0, 0,0, 9);
-        randX = randMove(randX);
-        randY = randMove(randY);
-
+        createBadBugs(50);
         // Рисуем чужего жука
         /*CreatorElements.circle(ctx, randBugX, randBugY, 4, 220, 0,0, 9);
         randBugX = randMove(randBugX, CreatorElements.rand(1,6));
         randBugY = randMove(randBugY, CreatorElements.rand(1,6));
         */
-        createBadBugs(2);
+
+
+        // Рисуем нашего жука
+        CreatorElements.circle(ctx, randX, randY, 6, 0, 0,0, 9);
+        randX = randMove(randX);
+        randY = randMove(randY);
 
     }
 
@@ -137,7 +144,7 @@ window.onload=function(){
         start();
         requestAnimationFrame(animationLoop,'#canvas');
     })();*/
-    setInterval(start, 40);
+    setInterval(start, 100);
 
 
 };
