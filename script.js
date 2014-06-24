@@ -110,8 +110,8 @@ window.onload=function(){
             } else {
                 CreatorElements.circle(ctx, randBugX[i], randBugY[i], 4, 220, 0,0, 9);
             }
-            randBugX[i] = randMove(randBugX[i]);
-            randBugY[i] = randMove(randBugY[i]);
+            randBugX[i] = randMove(randBugX[i], CreatorElements.rand(1,5));
+            randBugY[i] = randMove(randBugY[i], CreatorElements.rand(1,5));
 
         }
         stop = true;
@@ -125,7 +125,7 @@ window.onload=function(){
     function start(){
         clear(ctx);
 
-        createBadBugs(50);
+        createBadBugs(30);
         // Рисуем чужего жука
         /*CreatorElements.circle(ctx, randBugX, randBugY, 4, 220, 0,0, 9);
         randBugX = randMove(randBugX, CreatorElements.rand(1,6));
